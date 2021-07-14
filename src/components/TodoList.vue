@@ -1,9 +1,8 @@
 <template>
   <v-container>
-    TodoList
     <v-row>
       <v-col>
-        <v-btn @click="stepper = true">Add a new task</v-btn>
+        <v-btn v-if="stepper === false" color="blue white--text" @click="stepper = true">Add a new task</v-btn>
 
         <v-alert
                 v-model="taskSuccess"
@@ -52,7 +51,7 @@
               </v-form>
               <v-btn
                       color="primary"
-                      @click="verifyForm1()"
+                      @click="verifyForm1(), $vuetify.goTo('#goToClock', { duration: '1500', easing: 'easeInOutQuad'})"
               >
                 Continue
               </v-btn>
@@ -82,16 +81,16 @@
                   ></v-time-picker>
                 </v-col>
               </v-row>
-              <v-checkbox
+              <v-switch
                       v-model="allDay"
                       @click="taskTime = ''"
                       label="This task is for a whole day"
-              ></v-checkbox>
+              ></v-switch>
 
               <v-btn
                       color="primary"
                       @click="addTask()"
-              >
+                      :disabled="!validForm1">
                 Validate
               </v-btn>
 
@@ -160,7 +159,8 @@
 						const taskDetails = this.taskDetails;
 						const taskDate = this.taskDate;
 						const taskTime = this.taskTime;
-						this.$store.dispatch("addTask", {taskName, taskDetails, taskDate, taskTime})
+						this.$store.dispatch("addTask", {taskName, taskDetails, taskDate, taskTime});
+						this.$vuetify.goTo(0, {duration: '1000', easing: 'easeInOutQuad'});
 						this.errorDate = false;
 						this.errorTime = false;
 						this.stepper = false;

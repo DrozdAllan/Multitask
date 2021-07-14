@@ -2,14 +2,14 @@
   <v-container>
     <v-row class="fill-height">
       <v-col>
-        <v-sheet height="64">
+        <v-sheet>
           <v-toolbar
                   flat
           >
             <v-btn
                     outlined
                     class="mr-4"
-                    color="grey darken-2"
+                    color="blue"
                     @click="setToday"
             >
               This month
@@ -18,7 +18,7 @@
                     fab
                     text
                     small
-                    color="grey darken-2"
+                    color="blue"
                     @click="prev"
             >
               <v-icon small>
@@ -29,14 +29,14 @@
                     fab
                     text
                     small
-                    color="grey darken-2"
+                    color="blue"
                     @click="next"
             >
               <v-icon small>
                 mdi-chevron-right
               </v-icon>
             </v-btn>
-            <v-toolbar-title v-if="$refs.calendar">
+            <v-toolbar-title v-if="$refs.calendar" class="blue--text">
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -47,7 +47,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                         outlined
-                        color="grey darken-2"
+                        color="blue"
                         v-bind="attrs"
                         v-on="on"
                 >
@@ -59,22 +59,22 @@
               </template>
               <v-list>
                 <v-list-item @click="type = 'day'">
-                  <v-list-item-title>Day</v-list-item-title>
+                  <v-list-item-title class="blue--text">Day</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="type = 'week'">
-                  <v-list-item-title>Week</v-list-item-title>
+                  <v-list-item-title class="blue--text">Week</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="type = 'month'">
-                  <v-list-item-title>Month</v-list-item-title>
+                  <v-list-item-title class="blue--text">Month</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="type = '4day'">
-                  <v-list-item-title>4 days</v-list-item-title>
+                  <v-list-item-title class="blue--text">4 days</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
           </v-toolbar>
         </v-sheet>
-        <v-sheet height="600">
+        <v-sheet height="400">
           <v-calendar
                   ref="calendar"
                   v-model="focus"
@@ -92,7 +92,7 @@
                   offset-x
           >
             <v-card
-                    color="grey lighten-4"
+                    color="blue"
                     min-width="350px"
                     flat
             >
@@ -110,7 +110,7 @@
                 </v-btn>
               </v-toolbar>
               <v-card-text>
-                <span v-html="selectedEvent.details"></span>
+                <span class="white--text" v-html="selectedEvent.details"></span>
               </v-card-text>
             </v-card>
           </v-menu>
@@ -140,7 +140,12 @@
 		},
 		computed: {
 			events() {
-				return this.$store.getters.getTasks
+				const logStatus = this.$store.getters.getLoggedIn;
+				if (logStatus === false) {
+				return this.$store.getters.getTasks }
+				else {
+					return this.$store.getters.getLoggedTasks
+        }
 			}
 		},
 		methods: {

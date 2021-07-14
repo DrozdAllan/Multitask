@@ -15,13 +15,11 @@ firebase.initializeApp({
 
 // utils
 const db = firebase.firestore();
-const authorize = firebase.auth();
 
 const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
 // collection references
 const usersCollection = db.collection("users");
-const categoriesCollection = db.collection("categories");
 
 // export
-export {db, authorize, timestamp, usersCollection, categoriesCollection};
+export {db, timestamp, usersCollection};
