@@ -9,7 +9,7 @@
         If you want to access to all functionalities, please enter a nickname :
         <v-row no-gutters class="py-5">
           <v-spacer/>
-          <v-text-field color="red" label="Nickname" v-model="logName"></v-text-field>
+          <v-text-field @keyup.enter="logIn" color="red" label="Nickname" v-model="logName"></v-text-field>
           <v-btn @click="logIn" color="red white--text">Log !</v-btn>
           <v-spacer/>
         </v-row>

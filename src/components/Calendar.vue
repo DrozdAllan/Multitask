@@ -121,37 +121,51 @@
 </template>
 
 <script>
+	import {usersCollection} from "@/firebase";
+
 	export default {
-		data: () => ({
-			focus: '',
-			type: 'month',
-			typeToLabel: {
-				month: 'Month',
-				week: 'Week',
-				day: 'Day',
-				'4day': '4 Days',
-			},
-			selectedEvent: {},
-			selectedElement: null,
-			selectedOpen: false,
-		}),
+		data() {
+			return {
+				focus: '',
+				type: 'month',
+				typeToLabel: {
+					month: 'Month',
+					week: 'Week',
+					day: 'Day',
+					'4day': '4 Days',
+				},
+				selectedEvent: {},
+				selectedElement: null,
+				selectedOpen: false,
+			}
+		},
 		mounted() {
 			this.$refs.calendar.checkChange()
 		},
 		computed: {
 			events() {
-				const logStatus = this.$store.getters.getLoggedIn;
-				if (logStatus === false) {
-				return this.$store.getters.getTasks }
-				else {
-					return this.$store.getters.getLoggedTasks
-        }
-			}
+				return this.$store.getters.getTasks;
+			},
 		},
 		methods: {
 			deleteTask(taskName) {
-				console.log(taskName);
-				this.$store.dispatch("deleteTask", {taskName});
+				const logStatus = this.$store.getters.getLoggedIn;
+				if (logStatus === false) {
+					this.$store.dispatch("deleteLocalTask", {taskName});
+				} else {
+					// suppression firestore dune task
+					const nickname = this.$store.getters.getNickname;
+					const query = usersCollection.doc(nickname).collection('tasks').where('name', '==', taskName);
+					query.get().then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							doc.ref.delete();
+						});
+					}).catch((error) => {
+						console.log('error : ', error);
+					})
+					// this.$store.getters.getTasks;
+					// t'es pas loin, courage
+				}
 			},
 			viewDay({date}) {
 				this.focus = date

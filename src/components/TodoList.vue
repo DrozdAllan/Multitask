@@ -118,6 +118,8 @@
 
 <script>
 
+	import {usersCollection} from "@/firebase";
+
 	export default {
 		name: 'TodoList',
 		data() {
@@ -155,12 +157,29 @@
 						console.log('hour checked but no hour selected');
 						this.errorTime = true;
 					} else {
-						const taskName = this.taskName;
-						const taskDetails = this.taskDetails;
-						const taskDate = this.taskDate;
-						const taskTime = this.taskTime;
-						this.$store.dispatch("addTask", {taskName, taskDetails, taskDate, taskTime});
-						this.$vuetify.goTo(0, {duration: '1000', easing: 'easeInOutQuad'});
+
+						const logStatus = this.$store.getters.getLoggedIn;
+
+						let startTime = '';
+						if (this.taskTime === '') {
+							startTime = this.taskDate;
+						} else {
+							startTime = this.taskDate + ' ' + this.taskTime;
+						}
+						if (logStatus === false) {
+							const taskName = this.taskName;
+							const taskDetails = this.taskDetails;
+							this.$store.dispatch("addLocalTask", {taskName, taskDetails, startTime});
+						} else {
+							const nickname = this.$store.getters.getNickname;
+							usersCollection.doc(nickname).collection('tasks').add({
+								start: startTime,
+								name: this.taskName,
+								details: this.taskDetails,
+								color: 'indigo'
+							});
+							console.log('collection tasks updated !');
+						}
 						this.errorDate = false;
 						this.errorTime = false;
 						this.stepper = false;

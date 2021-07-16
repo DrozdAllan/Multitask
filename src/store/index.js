@@ -7,16 +7,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		tasks: [],
-		loggedTasks: [],
 		loggedIn: false,
 		nickname: "",
 	},
 	getters: {
 		getTasks(state) {
 			return state.tasks;
-		},
-		getLoggedTasks(state) {
-			return state.loggedTasks;
 		},
 		getLoggedIn(state) {
 			return state.loggedIn;
@@ -26,10 +22,10 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
-		uploadTask(state, payload) {
+		pushTask(state, payload) {
 			state.tasks.push(payload);
 		},
-		pushTask(state, payload) {
+		uploadTask(state, payload) {
 			state.tasks = payload;
 		},
 		setLoggedIn(state, payload) {
@@ -38,53 +34,53 @@ export default new Vuex.Store({
 		setName(state, payload) {
 			state.nickname = payload;
 		},
-		setLoggedTasks(state, payload) {
-			state.loggedTasks = payload;
-		}
 	},
 	actions: {
-		addTask({commit}, {taskName, taskDetails, taskDate, taskTime}) {
-			let startTime = '';
-			if (taskTime === '') {
-				startTime = taskDate;
-			} else {
-				startTime = taskDate + ' ' + taskTime;
-			}
-			if (this.state.loggedIn === false) {
-				const Task = {
-					name: taskName,
-					details: taskDetails,
-					start: startTime,
-					color: 'indigo'
-				};
-				commit("uploadTask", Task);
-			} else {
-				usersCollection.doc(this.state.nickname).collection('tasks').add({
-					start: startTime,
-					name: taskName,
-					details: taskDetails,
-					color: 'indigo'
-				});
-				console.log('collection tasks updated !');
-			}
+		addLocalTask({commit}, {taskName, taskDetails, startTime}) {
+			const Task = {
+				name: taskName,
+				details: taskDetails,
+				start: startTime,
+				color: 'indigo'
+			};
+			commit("pushTask", Task);
+
 		},
-		deleteTask({commit}, {taskName}) {
+		deleteLocalTask({commit}, {taskName}) {
 			const oldTasks = this.state.tasks;
-
 			const result = oldTasks.filter(task => task.name !== taskName);
-
-			commit("pushTask", result);
+			commit("uploadTask", result);
 		},
 		login({commit}, {logName}) {
-			const tasks = [];
+			let events = [];
+			// usersCollection.doc(logName).collection('tasks').get().then((querySnapshot) => {
+			// 	querySnapshot.forEach((doc) => {
+			// 		events.push(doc.data());
+			// 	})
+			// }); PAS BON => il faut refresh
+			// usersCollection.doc(logName).collection('tasks').onSnapshot((querySnapshot) => {
+			// 	querySnapshot.forEach((doc) => {
+			// 		events.push(doc.data());
+			// 	});
+			// }); PAS BON => les data sont multipliées après chaque event
 			usersCollection.doc(logName).collection('tasks').onSnapshot((snapshot) => {
 				snapshot.docChanges().forEach((change) => {
-					tasks.push(change.doc.data());
-				});
-			});
+					if (change.type === "added") {
+						console.log("New task: ", change.doc.data());
+						events.push(change.doc.data());
+					}
+					if (change.type === "modified") {
+						console.log("Modified task: ", change.doc.data());
+					}
+					if (change.type === "removed") {
+						console.log("Removed task: ", change.doc.data());
+						events = events.filter(task => task.name !== change.doc.data().name)
+					}
+				})
+			})
+			commit('uploadTask', events);
 			commit('setLoggedIn', true);
 			commit('setName', logName);
-			commit('setLoggedTasks', tasks);
 		}
 	},
 	modules: {}
