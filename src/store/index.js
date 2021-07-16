@@ -36,7 +36,8 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		addLocalTask({commit}, {taskName, taskDetails, startTime}) {
+		addTask({commit}, {taskName, taskDetails, startTime}) {
+			// add only the task locally ANYWAY
 			const Task = {
 				name: taskName,
 				details: taskDetails,
@@ -44,40 +45,41 @@ export default new Vuex.Store({
 				color: 'indigo'
 			};
 			commit("pushTask", Task);
-
+			if (this.state.loggedIn === true) {
+				// add the task to firebase if connected
+				usersCollection.doc(this.state.nickname).collection('tasks').add({
+					start: startTime,
+					name: taskName,
+					details: taskDetails,
+					color: 'indigo'
+				});
+				console.log('collection tasks updated on firestore !');
+			}
 		},
-		deleteLocalTask({commit}, {taskName}) {
+		deleteTask({commit}, {taskName}) {
+			// delete only the task ANYWAY
 			const oldTasks = this.state.tasks;
 			const result = oldTasks.filter(task => task.name !== taskName);
 			commit("uploadTask", result);
+			if (this.state.loggedIn === true) {
+				// delete the task to firebase if connected
+				const query = usersCollection.doc(this.state.nickname).collection('tasks').where('name', '==', taskName);
+				query.get().then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						doc.ref.delete();
+					});
+				}).catch((error) => {
+					console.log('error : ', error);
+				})
+			}
 		},
 		login({commit}, {logName}) {
 			let events = [];
-			// usersCollection.doc(logName).collection('tasks').get().then((querySnapshot) => {
-			// 	querySnapshot.forEach((doc) => {
-			// 		events.push(doc.data());
-			// 	})
-			// }); PAS BON => il faut refresh
-			// usersCollection.doc(logName).collection('tasks').onSnapshot((querySnapshot) => {
-			// 	querySnapshot.forEach((doc) => {
-			// 		events.push(doc.data());
-			// 	});
-			// }); PAS BON => les data sont multipliées après chaque event
-			usersCollection.doc(logName).collection('tasks').onSnapshot((snapshot) => {
-				snapshot.docChanges().forEach((change) => {
-					if (change.type === "added") {
-						console.log("New task: ", change.doc.data());
-						events.push(change.doc.data());
-					}
-					if (change.type === "modified") {
-						console.log("Modified task: ", change.doc.data());
-					}
-					if (change.type === "removed") {
-						console.log("Removed task: ", change.doc.data());
-						events = events.filter(task => task.name !== change.doc.data().name)
-					}
-				})
-			})
+			usersCollection.doc(logName).collection('tasks').get().then((snapshot) => {
+				snapshot.forEach((doc) => {
+					events.push(doc.data());
+				});
+			});
 			commit('uploadTask', events);
 			commit('setLoggedIn', true);
 			commit('setName', logName);

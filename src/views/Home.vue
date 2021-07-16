@@ -6,7 +6,8 @@
     <v-row>
       <v-spacer/>
       <v-col v-if="!loggedIn" cols="4">
-        If you want to access to all functionalities, please enter a nickname :
+        Enter a nickname to save your tasks online<br>
+        (nb: these are NOT saved by any security password, so anybody can get what you upload here with only your nickname)
         <v-row no-gutters class="py-5">
           <v-spacer/>
           <v-text-field @keyup.enter="logIn" color="red" label="Nickname" v-model="logName"></v-text-field>
@@ -43,7 +44,8 @@
     </v-row>
 
 
-    ajouter horloges mondiales, ajouter mode nuit et traductions dans le footer
+    ajouter horloges mondiales avec vue2-leaflet https://vue2-leaflet.netlify.app/quickstart/ , ajouter mode nuit et traductions dans le footer
+    <world />
   </v-container>
 </template>
 
@@ -53,10 +55,12 @@
 	import Weather from "../components/Weather";
 	import Timer from "../components/Timer";
 	import Chrono from "../components/Chrono";
+  import World from "@/components/World";
 
 	export default {
 		name: 'Home',
 		components: {
+		World,
 			Chrono,
 			Timer,
 			Weather,

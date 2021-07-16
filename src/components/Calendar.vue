@@ -121,7 +121,6 @@
 </template>
 
 <script>
-	import {usersCollection} from "@/firebase";
 
 	export default {
 		data() {
@@ -140,7 +139,7 @@
 			}
 		},
 		mounted() {
-			this.$refs.calendar.checkChange()
+			this.$refs.calendar.checkChange();
 		},
 		computed: {
 			events() {
@@ -149,23 +148,7 @@
 		},
 		methods: {
 			deleteTask(taskName) {
-				const logStatus = this.$store.getters.getLoggedIn;
-				if (logStatus === false) {
-					this.$store.dispatch("deleteLocalTask", {taskName});
-				} else {
-					// suppression firestore dune task
-					const nickname = this.$store.getters.getNickname;
-					const query = usersCollection.doc(nickname).collection('tasks').where('name', '==', taskName);
-					query.get().then((querySnapshot) => {
-						querySnapshot.forEach((doc) => {
-							doc.ref.delete();
-						});
-					}).catch((error) => {
-						console.log('error : ', error);
-					})
-					// this.$store.getters.getTasks;
-					// t'es pas loin, courage
-				}
+				this.$store.dispatch("deleteTask", {taskName});
 			},
 			viewDay({date}) {
 				this.focus = date

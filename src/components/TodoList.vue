@@ -158,28 +158,18 @@
 						this.errorTime = true;
 					} else {
 
-						const logStatus = this.$store.getters.getLoggedIn;
-
 						let startTime = '';
 						if (this.taskTime === '') {
 							startTime = this.taskDate;
 						} else {
 							startTime = this.taskDate + ' ' + this.taskTime;
 						}
-						if (logStatus === false) {
-							const taskName = this.taskName;
-							const taskDetails = this.taskDetails;
-							this.$store.dispatch("addLocalTask", {taskName, taskDetails, startTime});
-						} else {
-							const nickname = this.$store.getters.getNickname;
-							usersCollection.doc(nickname).collection('tasks').add({
-								start: startTime,
-								name: this.taskName,
-								details: this.taskDetails,
-								color: 'indigo'
-							});
-							console.log('collection tasks updated !');
-						}
+
+						const taskName = this.taskName;
+						const taskDetails = this.taskDetails;
+
+						this.$store.dispatch("addTask", {taskName, taskDetails, startTime});
+
 						this.errorDate = false;
 						this.errorTime = false;
 						this.stepper = false;

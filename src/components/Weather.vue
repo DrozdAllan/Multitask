@@ -12,28 +12,38 @@
       <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather">Weather</v-btn>
     </v-form>
     <v-card v-if="weatherName !== ''">
-      <v-img height="200px" class="white--text align-center" :src="weatherImg">
+      <v-img height="500px" class="white--text align-center" :src="weatherImg">
         <v-card-title>{{ weatherName }}</v-card-title>
-        <v-card-title>Actual Temp : {{ weatherTemp.temp }}. Feels Like : {{ weatherTemp.feels_like }}. Min Temp : {{
-          weatherTemp.temp_min }}. Max Temp {{ weatherTemp.temp_max }}. Pressure {{ weatherTemp.pressure }}. Humidity {{
-          weatherTemp.pressure }}
-        </v-card-title>
+        <v-card-subtitle>
+          <v-row no-gutters>
+            <v-col>
+              Actual Temp : {{ weatherTemp.temp }}<br>
+              Feels Like : {{ weatherTemp.feels_like }}<br>
+            </v-col>
+            <v-col>
+              Min Temp : {{ weatherTemp.temp_min }}<br>
+              Max Temp {{ weatherTemp.temp_max }}<br>
+            </v-col>
+            <v-col>
+              Pressure {{ weatherTemp.pressure }}<br>
+              Humidity {{ weatherTemp.pressure }}
+            </v-col>
+          </v-row>
+        </v-card-subtitle>
+        <v-row>
+          <v-col class="text-left">
+            <v-icon color="white">mdi-weather-windy</v-icon>
+            Speed {{ weatherWind.speed }} Deg {{ weatherWind.deg }}<br>
+
+            <v-icon color="white">mdi-compass</v-icon>
+            Lontitude {{ weatherCoord.lon }} Latitude {{ weatherCoord.lat }}<br>
+
+            <v-icon color="white">mdi-white-balance-sunny</v-icon>
+            Today's sunrise : {{ sunrise }} -
+            Today's sunset : {{ sunset }}<br>
+          </v-col>
+        </v-row>
       </v-img>
-      <v-card-text>
-        <div>
-          <v-icon>mdi-weather-windy</v-icon>
-          Speed {{ weatherWind.speed }} Deg {{ weatherWind.deg }}
-        </div>
-        <div>
-          <v-icon>mdi-compass</v-icon>
-          Lontitude {{ weatherCoord.lon }} Latitude {{ weatherCoord.lat }}
-        </div>
-        <div>
-          <v-icon>mdi-white-balance-sunny</v-icon>
-          Today's sunrise : {{ weatherSun.sunrise }}
-          Today's sunset : {{ weatherSun.sunset }}
-        </div>
-      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -78,6 +88,14 @@
 			}
 		},
 		computed: {
+			sunrise() {
+				const sunUp = new Date(this.weatherSun.sunrise * 1000);
+				return sunUp.getHours() + ':' + sunUp.getMinutes();
+			},
+			sunset() {
+				const sunDown = new Date(this.weatherSun.sunset * 1000);
+				return sunDown.getHours() + ':' + sunDown.getMinutes();
+			},
 			weatherImg() {
 				let imgUrl = '';
 				if (this.weatherStatus === 'Thunderstorm') {
