@@ -5,6 +5,7 @@ import store from './store'
 import "./firebase/";
 import vuetify from './plugins/vuetify'
 import vueAwesomeCountdown from 'vue-awesome-countdown'
+import 'leaflet/dist/leaflet.css';
 
 Vue.config.productionTip = false
 
