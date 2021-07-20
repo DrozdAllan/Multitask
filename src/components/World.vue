@@ -1,19 +1,19 @@
 <template>
   <v-container>
-    What time is it in the world ?
-
-    <div style="height: 1000px; width: 100%">
+    <div style="height: 800px; width: 100%">
       <div style="height: 100px; overflow: auto;">
-        <button @click="showMap = !showMap">
-          Toggle map
-        </button>
+        <span class="text-h3 light-green--text">What time is it in the world ?</span>
+        <br>
+        <v-btn x-small @click="refresh" color="light-green white--text">
+          Refresh time
+        </v-btn>
       </div>
       <l-map
               v-if="showMap"
               :zoom="zoom"
               :center="center"
               :options="mapOptions"
-              style="height: 80%"
+              style="height: 90%"
       >
         <l-tile-layer
                 :url="url"
@@ -22,84 +22,126 @@
         <l-marker :lat-lng="Paris">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              00:33
+              {{ nowTime(0) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Washington">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              18:33
+              {{ nowTime(-6) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Tokyo">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(7) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="London">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              23:33
+              {{ nowTime(-1) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Moskow">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(1) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Roma">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(0) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="SanFrancisco">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(-9) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Mexico">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(-7) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Brasilia">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(-5) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="BuenosAires">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(-5) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Sydney">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(8) }}
             </div>
           </l-tooltip>
         </l-marker>
         <l-marker :lat-lng="Bangkok">
           <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
             <div @click="innerClick">
-              6:33
+              {{ nowTime(5) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="Beijing">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(6) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="Lisbon">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(-1) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="Bamako">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(-2) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="Luanda">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(-1) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="Antananarivo">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(1) }}
+            </div>
+          </l-tooltip>
+        </l-marker>
+        <l-marker :lat-lng="NewDelhi">
+          <l-tooltip :options="{ permanent: true, interactive: true, direction: 'top' }">
+            <div @click="innerClick">
+              {{ nowTime(3.5) }}
             </div>
           </l-tooltip>
         </l-marker>
@@ -122,7 +164,7 @@
 	});
 
 	export default {
-		name: "Example",
+		name: "World",
 		components: {
 			LMap,
 			LTileLayer,
@@ -149,6 +191,12 @@
 				BuenosAires: latLng(-34.603722, -58.381592),
 				Sydney: latLng(-33.865143, 151.209900),
 				Bangkok: latLng(13.736717, 100.523186),
+				Beijing: latLng(39.916668, 116.383331),
+				Lisbon: latLng(38.736946, -9.142685),
+				Bamako: latLng(12.65, -8),
+				Luanda: latLng(-8.83682, 13.23432),
+				Antananarivo: latLng(-18.91368, 47.53613),
+				NewDelhi: latLng(28.644800, 77.216721),
 				mapOptions: {
 					zoomSnap: 0.5
 				},
@@ -156,11 +204,25 @@
 			};
 		},
 		methods: {
+			nowTime(decalage) {
+				const start = Date.now();
+				const decal = start + (decalage * 3600000);
+
+				return new Date(decal).toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
+			},
+			refresh() {
+				this.showMap = false;
+				setTimeout(() => {
+					this.showMap = true;
+				}, 500);
+			},
 			innerClick() {
 				alert("Click!");
 			}
 		}
-	};
+		,
+	}
+	;
 
 </script>
 

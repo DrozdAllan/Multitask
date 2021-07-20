@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn v-if="stepper === false" color="blue white--text" @click="stepper = true">Add a new task</v-btn>
+        <v-btn v-if="stepper === false" color="blue white--text" @click="stepper = true">New task</v-btn>
 
         <v-alert
                 v-model="taskSuccess"

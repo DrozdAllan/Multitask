@@ -4,7 +4,7 @@
       <v-row>
         <v-col class="px-0 px-md-3">
           <a class="white--text">
-            DarkMode </a
+            Credits </a
           ></v-col>
         <v-spacer class="hidden-md-and-down"/>
         <v-col>

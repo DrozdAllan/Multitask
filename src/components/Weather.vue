@@ -1,16 +1,25 @@
 <template>
   <v-container>
-    <span class="text-h3 teal--text">Weather</span>
-    <v-form ref="formWeather"
-            v-model="validFormWeather" lazy-validation>
-      <v-text-field label="City"
-                    color="teal"
-                    v-model="city"
-                    :rules="cityRules">City
-      </v-text-field>
+    <v-row class="text-h3 teal--text" justify="center">
+      Weather
+    </v-row>
 
-      <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather">Weather</v-btn>
-    </v-form>
+    <v-row justify="center" class="py-5">
+      <v-form ref="formWeather"
+              v-model="validFormWeather" lazy-validation>
+        <v-text-field label="Enter your city"
+                      color="teal"
+                      v-model="city"
+                      :rules="cityRules">
+        </v-text-field>
+
+      </v-form>
+    </v-row>
+
+    <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather">
+      Get Weather
+    </v-btn>
+
     <v-card v-if="weatherName !== ''">
       <v-img height="500px" class="white--text align-center" :src="weatherImg">
         <v-card-title>{{ weatherName }}</v-card-title>

@@ -1,16 +1,20 @@
 <template>
   <v-container>
-    <span class="text-h3 light-green--text">Chrono</span>
-    <hr>
-      <span class="label label-primary">{{ minutes }}</span> minutes
-      <span class="label label-primary">{{ secondes }}</span> secondes
-    <br>
-    <p>
-      <v-btn v-show="reset" @click="resetTimer">Reset</v-btn>
-      <v-btn v-show="pause" @click="pauseTimer">Pause</v-btn>
-      <v-btn v-show="resume" @click="resumeTimer">Resume</v-btn>
-      <v-btn v-show="play" @click="startTimer" color="light-green white--text">Play</v-btn>
-    </p>
+    <v-row class="text-h3 green--text" justify="center">
+      Chrono
+    </v-row>
+
+    <v-row justify="center" class="py-5">
+      <v-col>
+        <span class="label label-primary text-h3">{{ minutes }}</span> minutes
+        <span class="label label-primary text-h3">{{ secondes }}</span> secondes
+      </v-col>
+    </v-row>
+
+    <v-btn v-show="reset" @click="resetTimer">Reset</v-btn>
+    <v-btn v-show="pause" @click="pauseTimer">Pause</v-btn>
+    <v-btn v-show="resume" @click="resumeTimer">Resume</v-btn>
+    <v-btn v-show="play" @click="startTimer" color="green white--text">Start chrono</v-btn>
   </v-container>
 </template>
 

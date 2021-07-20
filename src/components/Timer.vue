@@ -1,19 +1,22 @@
 <template>
   <v-container>
-    <span class="text-h3 indigo--text">Timer</span>
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="2">
-          <v-select color="indigo" label="Minutes" :items="items" v-model="minutes"/>
-        </v-col>
-        <v-col cols="2">
-          <v-select color="indigo" label="Seconds" :items="items" v-model="seconds"/>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-btn color="indigo white--text" v-if="timer === false" @click="startTimer()">
-      Start !
+    <v-row class="text-h3 cyan--text" justify="center">
+      Timer
+    </v-row>
+
+    <v-row justify="center" class="py-2">
+      <v-col cols="2">
+        <v-select color="cyan" label="Minutes" :items="items" v-model="minutes"/>
+      </v-col>
+      <v-col cols="2">
+        <v-select color="cyan" label="Seconds" :items="items" v-model="seconds"/>
+      </v-col>
+    </v-row>
+
+    <v-btn color="cyan white--text" v-if="timer === false" @click="startTimer()">
+      Start timer
     </v-btn>
+
     <v-btn color="red" v-if="timer === true" @click="stopTimer()">
       Stop !
     </v-btn>
