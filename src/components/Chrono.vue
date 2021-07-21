@@ -11,10 +11,10 @@
       </v-col>
     </v-row>
 
-    <v-btn v-show="reset" @click="resetTimer">Reset</v-btn>
-    <v-btn v-show="pause" @click="pauseTimer">Pause</v-btn>
-    <v-btn v-show="resume" @click="resumeTimer">Resume</v-btn>
-    <v-btn v-show="play" @click="startTimer" color="green white--text">Start chrono</v-btn>
+    <v-btn v-show="reset" @click="resetTimer">{{$t('reset')}}</v-btn>
+    <v-btn v-show="pause" @click="pauseTimer">{{$t('pause')}}</v-btn>
+    <v-btn v-show="resume" @click="resumeTimer">{{$t('resume')}}</v-btn>
+    <v-btn v-show="play" @click="startTimer" color="green white--text">{{$t('chrono')}}</v-btn>
   </v-container>
 </template>
 

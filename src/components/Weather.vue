@@ -7,7 +7,7 @@
     <v-row justify="center" class="py-5">
       <v-form ref="formWeather"
               v-model="validFormWeather" lazy-validation>
-        <v-text-field label="Enter your city"
+        <v-text-field :label="$t('city')"
                       color="teal"
                       v-model="city"
                       :rules="cityRules">
@@ -17,7 +17,7 @@
     </v-row>
 
     <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather" class="mb-3">
-      Get Weather
+      {{$t("weather")}}
     </v-btn>
 
     <v-card v-if="weatherName !== ''">
@@ -26,29 +26,29 @@
         <v-container fill-height class="text-subtitle-1">
           <v-row align="center">
             <v-col>
-              Actual Temp : {{ weatherTemp.temp }}°<br>
-              Feels Like : {{ weatherTemp.feels_like }}°<br>
+              {{$t('temp')}} : {{ weatherTemp.temp }}°<br>
+              {{$t('feels')}} : {{ weatherTemp.feels_like }}°<br>
             </v-col>
             <v-col>
-              Min Temp : {{ weatherTemp.temp_min }}°<br>
-              Max Temp : {{ weatherTemp.temp_max }}°<br>
+              {{$t('min')}} : {{ weatherTemp.temp_min }}°<br>
+              {{$t('max')}} : {{ weatherTemp.temp_max }}°<br>
             </v-col>
             <v-col>
-              Pressure : {{ weatherTemp.pressure }}Pa<br>
-              Humidity : {{ weatherTemp.humidity }}%
+              {{$t('pressure')}} : {{ weatherTemp.pressure }}Pa<br>
+              {{$t('humidity')}} : {{ weatherTemp.humidity }}%
             </v-col>
           </v-row>
           <v-row align="end">
             <v-col class="text-left">
               <v-icon color="white">mdi-weather-windy</v-icon>
-              Speed : {{ weatherWind.speed }}kts - Deg : {{ weatherWind.deg }}°<br>
+              {{$t('speed')}} : {{ weatherWind.speed }}kts - {{$t('direction')}} : {{ weatherWind.deg }}°<br>
 
               <v-icon color="white">mdi-compass</v-icon>
-              Lontitude : {{ weatherCoord.lon }} - Latitude : {{ weatherCoord.lat }}<br>
+              {{$t('long')}} : {{ weatherCoord.lon }} - {{$t('lat')}} : {{ weatherCoord.lat }}<br>
 
               <v-icon color="white">mdi-white-balance-sunny</v-icon>
-              Today's sunrise : {{ sunrise }} -
-              Today's sunset : {{ sunset }}<br>
+              {{$t('sunrise')}} : {{ sunrise }} -
+              {{$t('sunset')}} : {{ sunset }}<br>
             </v-col>
           </v-row>
         </v-container>

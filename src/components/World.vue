@@ -2,10 +2,10 @@
   <v-container>
     <div style="height: 800px; width: 100%">
       <div style="height: 100px; overflow: auto;">
-        <span class="text-h3 light-green--text">What time is it in the world ?</span>
+        <span class="text-h3 light-green--text">{{$t('time')}}</span>
         <br>
         <v-btn x-small @click="refresh" color="light-green white--text">
-          Refresh time
+          {{$t('refresh')}}
         </v-btn>
       </div>
       <l-map

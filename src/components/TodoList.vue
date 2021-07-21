@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn v-if="stepper === false" color="blue white--text" @click="stepper = true">New task</v-btn>
+        <v-btn v-if="stepper === false" color="blue white--text" @click="stepper = true">{{ $t("new task") }}</v-btn>
 
         <v-alert
                 v-model="taskSuccess"
@@ -11,7 +11,7 @@
                 dark
                 dismissible
         >
-          Task added with success !
+          {{ $t("success") }}
         </v-alert>
         <v-stepper v-if="stepper" v-model="e1">
           <v-stepper-header>
@@ -19,7 +19,7 @@
                     :complete="e1 > 1"
                     step="1"
             >
-              Add a new Task
+              {{ $t("add") }}
             </v-stepper-step>
 
             <v-divider></v-divider>
@@ -28,7 +28,7 @@
                     :complete="e1 > 2"
                     step="2"
             >
-              Define the new Task
+              {{ $t("define") }}
             </v-stepper-step>
 
             <v-divider></v-divider>
@@ -40,12 +40,12 @@
               <v-form ref="form1"
                       v-model="validForm1" lazy-validation>
                 <v-text-field
-                        label="Name of the new task"
+                        :label="$t('name')"
                         v-model="taskName"
                         :rules="taskNameRules"
                 ></v-text-field>
                 <v-text-field
-                        label="Description of the new task (optional)"
+                        :label="$t('description')"
                         v-model="taskDetails"
                 ></v-text-field>
               </v-form>
@@ -53,11 +53,11 @@
                       color="primary"
                       @click="verifyForm1(), $vuetify.goTo('#goToClock', { duration: '1500', easing: 'easeInOutQuad'})"
               >
-                Continue
+                {{ $t('continue') }}
               </v-btn>
 
               <v-btn text @click="stepper = false, taskName = '', taskDetails = ''">
-                Cancel
+                {{ $t('cancel') }}
               </v-btn>
             </v-stepper-content>
 
@@ -84,27 +84,27 @@
               <v-switch
                       v-model="allDay"
                       @click="taskTime = ''"
-                      label="This task is for a whole day"
+                      :label="$t('whole day')"
               ></v-switch>
 
               <v-btn
                       color="primary"
                       @click="addTask()"
                       :disabled="!validForm1">
-                Validate
+                {{ $t('validate') }}
               </v-btn>
 
               <v-btn text @click="e1 = 1, taskTime = '', taskDate = ''">
-                Cancel
+                {{ $t('cancel') }}
               </v-btn>
               <v-card v-if="errorDate">
                 <v-card-text>
-                  You have to select a date
+                  {{ $t('taskError1') }}
                 </v-card-text>
               </v-card>
               <v-card v-if="errorTime">
                 <v-card-text>
-                  If you unchecked "this task is for a whole day" you have to select a time
+                  {{ $t('taskError2') }}
                 </v-card-text>
               </v-card>
             </v-stepper-content>
@@ -117,8 +117,6 @@
 </template>
 
 <script>
-
-	import {usersCollection} from "@/firebase";
 
 	export default {
 		name: 'TodoList',

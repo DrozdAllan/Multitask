@@ -19,16 +19,16 @@
     <v-row>
       <v-spacer/>
       <v-col v-if="!loggedIn" cols="4">
-        Enter a nickname to save your tasks online<br>
+        {{ $t("message") }}
+        <br>
         <v-row no-gutters class="py-5">
           <v-spacer/>
           <v-col cols="12">
-            <v-text-field dense outlined @keyup.enter="logIn" color="green" hint="nb: these are NOT saved by any security password, so anybody can get what you upload here with only your
-        nickname" class="text-center" label="Nickname" v-model="logName"></v-text-field>
+            <v-text-field dense outlined @keyup.enter="logIn" color="green" :hint="$t('hint')" class="text-center" :label="$t('label')" v-model="logName"></v-text-field>
           </v-col>
           <v-spacer/>
           <v-col>
-            <v-btn @click="logIn" class="multi" color="white--text">Log !</v-btn>
+            <v-btn @click="logIn" class="multi" color="white--text">{{ $t("login") }}</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -100,7 +100,7 @@
 			},
 			darkMode() {
 				return this.$store.getters.getDarkMode
-			}
+			},
 		},
 		methods: {
 			logIn() {

@@ -6,19 +6,19 @@
 
     <v-row justify="center" class="py-2">
       <v-col cols="2">
-        <v-select color="cyan" label="Minutes" :items="items" v-model="minutes"/>
+        <v-select color="cyan" :label="$t('minutes')" :items="items" v-model="minutes"/>
       </v-col>
       <v-col cols="2">
-        <v-select color="cyan" label="Seconds" :items="items" v-model="seconds"/>
+        <v-select color="cyan" :label="$t('seconds')" :items="items" v-model="seconds"/>
       </v-col>
     </v-row>
 
     <v-btn color="cyan white--text" v-if="timer === false" @click="startTimer()">
-      Start timer
+      {{ $t('timer') }}
     </v-btn>
 
     <v-btn color="red" v-if="timer === true" @click="stopTimer()">
-      Stop !
+      {{ $t('timerStop') }}
     </v-btn>
     <v-row justify="center" class="py-5">
       <vac v-if="timer" :left-time="leftTime">
@@ -28,7 +28,7 @@
         </template>
         <template
                 v-slot:finish>
-          <span>Done!</span>
+          <span>{{ $t('done') }}</span>
         </template>
       </vac>
     </v-row>
