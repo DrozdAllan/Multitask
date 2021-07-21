@@ -11,7 +11,9 @@
         </h3>
       </v-col>
       <v-col cols="3">
-        <v-btn>DarkMode</v-btn>
+        <v-btn small rounded color="black" @click="toggleDarkMode">
+          <v-icon color="white">mdi-theme-light-dark</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -35,7 +37,7 @@
       </v-col>
       <v-spacer/>
     </v-row>
-    <v-row class="border-gradient-first">
+    <v-row :class="[ darkMode ? 'border-gradient-first-black' : 'border-gradient-first']">
       <v-col cols="12">
         <Calendar/>
       </v-col>
@@ -44,7 +46,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="border-gradient my-15">
+    <v-row class="my-15" :class="[ darkMode ? 'border-gradient-black' : 'border-gradient-first']">
       <v-col>
         <timer/>
       </v-col>
@@ -58,7 +60,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="border-gradient-world my-10">
+    <v-row class="my-10" :class="[ darkMode ? 'border-gradient-world-black' : 'border-gradient-world']">
       <v-col>
         <world/>
       </v-col>
@@ -95,12 +97,18 @@
 			},
 			nickname() {
 				return this.$store.getters.getNickname
+			},
+			darkMode() {
+				return this.$store.getters.getDarkMode
 			}
 		},
 		methods: {
 			logIn() {
 				const logName = this.logName;
 				this.$store.dispatch('login', {logName});
+			},
+			toggleDarkMode() {
+				this.$store.commit('toggleDarkMode');
 			}
 		}
 	}
@@ -122,6 +130,17 @@
     background-clip: content-box, border-box;
   }
 
+  .border-gradient-first-black {
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 30px;
+    background-image: linear-gradient(#212121, #212121),
+    linear-gradient(to bottom, #2196F3, #1E88E5);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+
   .border-gradient {
     border-width: 5px;
     border-style: solid;
@@ -133,12 +152,33 @@
     background-clip: content-box, border-box;
   }
 
+  .border-gradient-black {
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 30px;
+    background-image: linear-gradient(#212121, #212121),
+    linear-gradient(to right, #00BCD4, #009688, #4CAF50);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+
   .border-gradient-world {
     border-width: 5px;
     border-style: solid;
     border-color: transparent;
     border-radius: 30px;
     background-image: linear-gradient(white, white),
+    linear-gradient(to bottom, #8BC34A, #7CB342);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+  .border-gradient-world-black {
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 30px;
+    background-image: linear-gradient(#212121, #212121),
     linear-gradient(to bottom, #8BC34A, #7CB342);
     background-origin: border-box;
     background-clip: content-box, border-box;

@@ -16,42 +16,42 @@
       </v-form>
     </v-row>
 
-    <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather">
+    <v-btn color="teal white--text" :disabled="!validFormWeather" @click="searchWeather" class="mb-3">
       Get Weather
     </v-btn>
 
     <v-card v-if="weatherName !== ''">
-      <v-img height="500px" class="white--text align-center" :src="weatherImg">
-        <v-card-title>{{ weatherName }}</v-card-title>
-        <v-card-subtitle>
-          <v-row no-gutters>
+      <v-img height="500px" class="white--text" :src="weatherImg">
+        <div class="text-h4 justify-center pt-3">{{ weatherName }}</div>
+        <v-container fill-height class="text-subtitle-1">
+          <v-row align="center">
             <v-col>
-              Actual Temp : {{ weatherTemp.temp }}<br>
-              Feels Like : {{ weatherTemp.feels_like }}<br>
+              Actual Temp : {{ weatherTemp.temp }}°<br>
+              Feels Like : {{ weatherTemp.feels_like }}°<br>
             </v-col>
             <v-col>
-              Min Temp : {{ weatherTemp.temp_min }}<br>
-              Max Temp {{ weatherTemp.temp_max }}<br>
+              Min Temp : {{ weatherTemp.temp_min }}°<br>
+              Max Temp : {{ weatherTemp.temp_max }}°<br>
             </v-col>
             <v-col>
-              Pressure {{ weatherTemp.pressure }}<br>
-              Humidity {{ weatherTemp.pressure }}
+              Pressure : {{ weatherTemp.pressure }}Pa<br>
+              Humidity : {{ weatherTemp.humidity }}%
             </v-col>
           </v-row>
-        </v-card-subtitle>
-        <v-row>
-          <v-col class="text-left">
-            <v-icon color="white">mdi-weather-windy</v-icon>
-            Speed {{ weatherWind.speed }} Deg {{ weatherWind.deg }}<br>
+          <v-row align="end">
+            <v-col class="text-left">
+              <v-icon color="white">mdi-weather-windy</v-icon>
+              Speed : {{ weatherWind.speed }}kts - Deg : {{ weatherWind.deg }}°<br>
 
-            <v-icon color="white">mdi-compass</v-icon>
-            Lontitude {{ weatherCoord.lon }} Latitude {{ weatherCoord.lat }}<br>
+              <v-icon color="white">mdi-compass</v-icon>
+              Lontitude : {{ weatherCoord.lon }} - Latitude : {{ weatherCoord.lat }}<br>
 
-            <v-icon color="white">mdi-white-balance-sunny</v-icon>
-            Today's sunrise : {{ sunrise }} -
-            Today's sunset : {{ sunset }}<br>
-          </v-col>
-        </v-row>
+              <v-icon color="white">mdi-white-balance-sunny</v-icon>
+              Today's sunrise : {{ sunrise }} -
+              Today's sunset : {{ sunset }}<br>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-img>
     </v-card>
   </v-container>

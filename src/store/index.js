@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {usersCollection} from "@/firebase";
+import Vuetify from "../plugins/vuetify";
 
 Vue.use(Vuex)
 
@@ -9,6 +10,7 @@ export default new Vuex.Store({
 		tasks: [],
 		loggedIn: false,
 		nickname: "",
+		darkMode: false,
 	},
 	getters: {
 		getTasks(state) {
@@ -19,6 +21,9 @@ export default new Vuex.Store({
 		},
 		getNickname(state) {
 			return state.nickname;
+		},
+		getDarkMode(state) {
+			return state.darkMode;
 		}
 	},
 	mutations: {
@@ -34,6 +39,10 @@ export default new Vuex.Store({
 		setName(state, payload) {
 			state.nickname = payload;
 		},
+		toggleDarkMode(state) {
+			Vuetify.framework.theme.dark = !Vuetify.framework.theme.dark;
+			state.darkMode = !state.darkMode;
+		}
 	},
 	actions: {
 		addTask({commit}, {taskName, taskDetails, startTime}) {
@@ -83,7 +92,7 @@ export default new Vuex.Store({
 			commit('uploadTask', events);
 			commit('setLoggedIn', true);
 			commit('setName', logName);
-		}
+		},
 	},
 	modules: {}
 })
