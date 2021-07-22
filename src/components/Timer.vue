@@ -6,10 +6,10 @@
 
     <v-row justify="center" class="py-2">
       <v-col cols="2">
-        <v-select color="cyan" :label="$t('minutes')" :items="items" v-model="minutes"/>
+        <v-text-field color="cyan" :label="$t('minutes')" v-model.number="minutes"></v-text-field>
       </v-col>
       <v-col cols="2">
-        <v-select color="cyan" :label="$t('seconds')" :items="items" v-model="seconds"/>
+        <v-text-field color="cyan" :label="$t('seconds')" v-model.number="seconds"></v-text-field>
       </v-col>
     </v-row>
 
@@ -17,20 +17,36 @@
       {{ $t('timer') }}
     </v-btn>
 
-    <v-btn color="red" v-if="timer === true" @click="stopTimer()">
+    <v-btn color="cyan white--text" v-if="timer === true" @click="stopTimer()">
       {{ $t('timerStop') }}
     </v-btn>
     <v-row justify="center" class="py-5">
-      <vac v-if="timer" :left-time="leftTime">
+      <countdown v-if="timer" :end-time="new Date().getTime() + timeToMs">
         <template
                 v-slot:process="{ timeObj }">
-          <span>{{ `${timeObj.m}m ${timeObj.s}s` }}</span>
+          <v-progress-circular
+                  :rotate="-90"
+                  :size="400"
+                  :width="20"
+                  :value="value"
+                  color="cyan"
+          >
+            {{ `${timeObj.m}m ${timeObj.s}s` }}
+          </v-progress-circular>
         </template>
         <template
                 v-slot:finish>
-          <span>{{ $t('done') }}</span>
+          <v-progress-circular
+                  :rotate="-90"
+                  :size="400"
+                  :width="20"
+                  :value="value"
+                  color="cyan"
+          >
+            {{ $t('done') }}
+          </v-progress-circular>
         </template>
-      </vac>
+      </countdown>
     </v-row>
 
   </v-container>
@@ -46,26 +62,30 @@
 				timer: false,
 				time: "",
 				leftTime: "",
-				items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+				interval: {},
+				value: 100
 			}
 		},
 		computed: {
 			timeToMs() {
-				// minutes are worth 60 seconds. Hours are worth 60 minutes.
-				const seconds = (this.minutes) * 60 + (this.seconds);
-
-				const ms = seconds * 1000;
-
-				return ms;
-			}
+				return ((this.minutes * 60) + this.seconds) * 1000;
+			},
 		},
 		methods: {
 			startTimer() {
 				this.timer = true;
 				this.leftTime = this.timeToMs; // doit être en milliseconds
+				this.interval = setInterval(() => {
+					if (this.value === 0) {
+						return (this.value = 100)
+					}
+					this.value -= 100 / (this.timeToMs / 1000);
+				}, 1000)
 			},
 			stopTimer() {
 				this.timer = false;
+				clearInterval(this.interval);
+				this.value = 100;
 			}
 		},
 	}

@@ -1,12 +1,12 @@
 {
   "message": "Entrez un pseudo pour enregistrer vos tâches",
   "label": "Pseudo",
-  "hint": "il n'y a aucune sécurité, ne mettez pas de données critiques",
+  "hint": "Il n'y a PAS de sécurité, ne mettez PAS de données critiques",
   "login": "Connexion",
   "this month": "ce mois",
-  "month": "mois",
-  "week": "semaine",
-  "day": "jour",
+  "month": "Mois",
+  "week": "Semaine",
+  "day": "Jour",
   "4 days": "4 jours",
   "new task": "nouvelle tâche",
   "add": "Ajouter une nouvelle tâche",
@@ -44,5 +44,5 @@
   "pause": "pause",
   "resume": "reprendre",
   "time": "Quelle heure est-il dans le monde ?",
-  "refresh": "rafraichir l/'heure"
+  "refresh": "rafraichir l'heure"
 }

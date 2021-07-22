@@ -11,8 +11,8 @@
         </h3>
       </v-col>
       <v-col cols="3">
-        <v-btn small rounded color="black" @click="toggleDarkMode">
-          <v-icon color="white">mdi-theme-light-dark</v-icon>
+        <v-btn small rounded :color="dynamicDarkMode1()" @click="toggleDarkMode">
+          <v-icon :color="dynamicDarkMode2()"> mdi-theme-light-dark</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -24,7 +24,8 @@
         <v-row no-gutters class="py-5">
           <v-spacer/>
           <v-col cols="12">
-            <v-text-field dense outlined @keyup.enter="logIn" color="green" :hint="$t('hint')" class="text-center" :label="$t('label')" v-model="logName"></v-text-field>
+            <v-text-field dense outlined @keyup.enter="logIn" color="green" :hint="$t('hint')" class="text-center"
+                          :label="$t('label')" v-model="logName"></v-text-field>
           </v-col>
           <v-spacer/>
           <v-col>
@@ -109,6 +110,20 @@
 			},
 			toggleDarkMode() {
 				this.$store.commit('toggleDarkMode');
+			},
+			dynamicDarkMode1() {
+				if (this.darkMode === true) {
+					return 'white';
+				} else {
+					return 'black';
+				}
+			},
+			dynamicDarkMode2() {
+				if (this.darkMode === true) {
+					return 'black';
+				} else {
+					return 'white';
+				}
 			}
 		}
 	}
@@ -173,6 +188,7 @@
     background-origin: border-box;
     background-clip: content-box, border-box;
   }
+
   .border-gradient-world-black {
     border-width: 5px;
     border-style: solid;
