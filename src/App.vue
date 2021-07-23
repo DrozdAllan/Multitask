@@ -1,20 +1,21 @@
 <template>
   <v-app>
+    <app-top/>
     <v-main>
       <!-- Sizes your content based upon application components -->
       <!-- Provides the application the proper gutter -->
       <router-view/>
     </v-main>
-      <app-footer/>
+    <app-footer/>
   </v-app>
 </template>
 
 <script>
 	import AppFooter from "./components/AppFooter.vue";
-	import AppNavigation from "./components/AppNavigation.vue";
+	import AppTop from "./components/AppTop.vue";
 
 	export default {
 		name: "App",
-		components: {AppNavigation, AppFooter},
+		components: {AppFooter, AppTop},
 	};
 </script>

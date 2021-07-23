@@ -21,7 +21,7 @@
     </v-btn>
 
     <v-card v-if="weatherName !== ''">
-      <v-img height="500px" class="white--text" :src="weatherImg">
+      <v-img height="500px" class="white--text text-outline" :src="weatherInfo.imageFile" >
         <div class="text-h4 justify-center pt-3">{{ weatherName }}</div>
         <v-container fill-height class="text-subtitle-1">
           <v-row align="center">
@@ -51,6 +51,9 @@
               {{$t('sunset')}} : {{ sunset }}<br>
             </v-col>
           </v-row>
+          <v-card-subtitle>
+            Photo by <a class="white--text" target="_blank" :href="weatherInfo.link">{{ weatherInfo.credit }}</a>
+          </v-card-subtitle>
         </v-container>
       </v-img>
     </v-card>
@@ -58,6 +61,8 @@
 </template>
 
 <script>
+	import {images} from '@/assets/imagesDb.js';
+
 	const axios = require('axios');
 
 	export default {
@@ -105,39 +110,27 @@
 				const sunDown = new Date(this.weatherSun.sunset * 1000);
 				return sunDown.getHours() + ':' + sunDown.getMinutes();
 			},
-			weatherImg() {
-				let imgUrl = '';
-				if (this.weatherStatus === 'Thunderstorm') {
-					imgUrl = require('@/assets/images/Thunderstorm-johannes-plenio-ESL1rIs9j48-unsplash.jpg');
-				} else if (this.weatherStatus === 'Drizzle') {
-					imgUrl = require('@/assets/images/Drizzle-anant-chandra-kiZiXe8xueo-unsplash.jpg');
-				} else if (this.weatherStatus === 'Rain') {
-					imgUrl = require('@/assets/images/Rain-natsuki-4DsowKunk84-unsplash.jpg');
-				} else if (this.weatherStatus === 'Snow') {
-					imgUrl = require('@/assets/images/Snow-josh-hild-DUo_v00MumY-unsplash.jpg');
-				} else if (this.weatherStatus === 'Mist') {
-					imgUrl = require('@/assets/images/Mist-cristofer-jeschke-YmsrXcDf0J8-unsplash.jpg');
-				} else if (this.weatherStatus === 'Haze') {
-					imgUrl = require('@/assets/images/Haze-lute-Haa818ukKUE-unsplash.jpg');
-				} else if (this.weatherStatus === 'Dust') {
-					imgUrl = require('@/assets/images/Dust-natalie-comrie-KyBu9OiG6Tg-unsplash.jpg');
-				} else if (this.weatherStatus === 'Fog') {
-					imgUrl = require('@/assets/images/Fog-jenna-anderson-UylXHkdG42s-unsplash.jpg');
-				} else if (this.weatherStatus === 'Sand') {
-					imgUrl = require('@/assets/images/Sand-vincent-goulet--8XxA-QO3Y8-unsplash.jpg');
-				} else if (this.weatherStatus === 'Ash') {
-					imgUrl = require('@/assets/images/Ash-marius-gerome-photography-kUt61haB6WY-unsplash.jpg');
-				} else if (this.weatherStatus === 'Squall') {
-					imgUrl = require('@/assets/images/Squall-nick-fewings-OowKAQM1_sE-unsplash.jpg');
-				} else if (this.weatherStatus === 'Tornado') {
-					imgUrl = require('@/assets/images/Tornado-nikolas-noonan-fQM8cbGY6iQ-unsplash.jpg');
-				} else if (this.weatherStatus === 'Clear') {
-					imgUrl = require('@/assets/images/Clear-zuzana-ruttkay-n2poVQijgzo-unsplash.jpg');
-				} else if (this.weatherStatus === 'Clouds') {
-					imgUrl = require('@/assets/images/Clouds-tom-barrett-hgGplX3PFBg-unsplash.jpg');
+			weatherInfo() {
+				let weatherInfo = {};
+				for (const image of images) {
+					if (image.weather === this.weatherStatus) {
+						weatherInfo.imageFile = image.imageFile;
+						weatherInfo.credit = image.credit;
+						weatherInfo.link = image.link;
+					}
 				}
-				return imgUrl;
-			}
-		}
+				return weatherInfo;
+			},
+		},
 	}
 </script>
+
+<style scoped>
+.text-outline {
+  text-shadow:
+          -1px -1px 0 #009688,
+          1px -1px 0 #009688,
+          -1px 1px 0 #009688,
+          1px 1px 0 #009688;
+}
+ </style>

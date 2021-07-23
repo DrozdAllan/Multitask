@@ -27,7 +27,7 @@
   "done": "Done !",
   "city": "Enter your city",
   "weather": "get weather",
-  "temp": "Actual Temp",
+  "temp": "Current Temp",
   "feels": "Feels Like",
   "min": "Min Temp",
   "max": "Max Temp",
@@ -44,5 +44,6 @@
   "pause": "pause",
   "resume": "resume",
   "time": "What time is it in the world ?",
-  "refresh": "refresh time"
+  "refresh": "refresh time",
+  "about" : "About"
 }

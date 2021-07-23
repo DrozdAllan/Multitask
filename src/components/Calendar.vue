@@ -128,7 +128,7 @@
 				focus: '',
 				type: 'month',
 				typeToLabel: {
-					month: 'Month' ,
+					month: 'Month',
 					week: 'Week',
 					day: 'Day',
 					'4day': '4 Days',
@@ -155,7 +155,7 @@
 				this.type = 'day'
 			},
 			setToday() {
-				this.type = "month";
+				this.type = 'month';
 			},
 			prev() {
 				this.$refs.calendar.prev()

@@ -44,5 +44,6 @@
   "pause": "pause",
   "resume": "reprendre",
   "time": "Quelle heure est-il dans le monde ?",
-  "refresh": "rafraichir l'heure"
+  "refresh": "rafraichir l'heure",
+  "about": "A propos"
 }
