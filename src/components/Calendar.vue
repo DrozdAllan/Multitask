@@ -8,35 +8,35 @@
           >
             <v-btn
                     outlined
-                    class="mr-4"
+                    :x-small="$vuetify.breakpoint.mobile"
                     color="blue"
                     @click="setToday"
             >
-              {{ $t("this month") }}
+              <v-icon :small="$vuetify.breakpoint.mobile">mdi-calendar-sync</v-icon>
             </v-btn>
             <v-btn
                     fab
                     text
-                    small
+                    :x-small="$vuetify.breakpoint.mobile"
                     color="blue"
                     @click="prev"
             >
-              <v-icon small>
+              <v-icon :small="$vuetify.breakpoint.mobile">
                 mdi-chevron-left
               </v-icon>
             </v-btn>
             <v-btn
                     fab
                     text
-                    small
+                    :x-small="$vuetify.breakpoint.mobile"
                     color="blue"
                     @click="next"
             >
-              <v-icon small>
+              <v-icon :small="$vuetify.breakpoint.mobile">
                 mdi-chevron-right
               </v-icon>
             </v-btn>
-            <v-toolbar-title v-if="$refs.calendar" class="blue--text">
+            <v-toolbar-title v-if="$refs.calendar" class="blue--text" :style="{ fontSize: fontSize + 'px' }">
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -47,6 +47,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                         outlined
+                        :x-small="$vuetify.breakpoint.mobile"
                         color="blue"
                         v-bind="attrs"
                         v-on="on"
@@ -145,6 +146,13 @@
 			events() {
 				return this.$store.getters.getTasks;
 			},
+			fontSize() {
+				if (this.$vuetify.breakpoint.mobile) {
+					return 15
+				} else {
+					return 30
+				}
+			}
 		},
 		methods: {
 			deleteTask(taskName) {

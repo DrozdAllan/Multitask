@@ -5,10 +5,10 @@
     </v-row>
 
     <v-row justify="center" class="py-2">
-      <v-col cols="2">
+      <v-col cols="3">
         <v-text-field color="cyan" :label="$t('minutes')" v-model.number="minutes"></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="3">
         <v-text-field color="cyan" :label="$t('seconds')" v-model.number="seconds"></v-text-field>
       </v-col>
     </v-row>
@@ -26,7 +26,7 @@
                 v-slot:process="{ timeObj }">
           <v-progress-circular
                   :rotate="-90"
-                  :size="400"
+                  :size="300"
                   :width="20"
                   :value="value"
                   color="cyan"
@@ -38,7 +38,7 @@
                 v-slot:finish>
           <v-progress-circular
                   :rotate="-90"
-                  :size="400"
+                  :size="300"
                   :width="20"
                   :value="value"
                   color="cyan"

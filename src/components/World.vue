@@ -2,7 +2,7 @@
   <v-container>
     <div style="height: 800px; width: 100%">
       <div style="height: 100px; overflow: auto;">
-        <span class="text-h3 light-green--text">{{$t('time')}}</span>
+        <span class="text-h5 text-md-h3 light-green--text">{{$t('time')}}</span>
         <br>
         <v-btn x-small @click="refresh" color="light-green white--text">
           {{$t('refresh')}}

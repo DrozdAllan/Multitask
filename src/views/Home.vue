@@ -1,27 +1,22 @@
 <template>
   <v-container class="text-center">
     <v-row>
-      <v-spacer/>
-      <v-col v-if="!loggedIn" cols="4">
+      <v-spacer class="hidden-sm-and-down"/>
+      <v-col v-if="!loggedIn">
         {{ $t("message") }}
         <br>
-        <v-row no-gutters class="py-5">
-          <v-spacer/>
-          <v-col cols="12">
-            <v-text-field dense outlined @keyup.enter="logIn" color="green" :hint="$t('hint')" class="text-center"
-                          :label="$t('label')" v-model="logName"></v-text-field>
-          </v-col>
-          <v-spacer/>
-          <v-col>
-            <v-btn @click="logIn" class="multi" color="white--text">{{ $t("login") }}</v-btn>
-          </v-col>
-        </v-row>
+        <v-col class="pb-0 mb-0" cols="12">
+          <v-text-field dense outlined @keyup.enter="logIn" color="green" :hint="$t('hint')" class="text-center"
+                        :label="$t('label')" v-model="logName"></v-text-field>
+        </v-col>
+        <v-btn @click="logIn" class="multi" color="white--text">{{ $t("login") }}</v-btn>
       </v-col>
-      <v-col v-else cols="4">
+      <v-col v-else>
         <span class="text-h2">Hello {{ nickname }} !</span>
       </v-col>
-      <v-spacer/>
+      <v-spacer class="hidden-sm-and-down"/>
     </v-row>
+
     <v-row :class="[ darkMode ? 'border-gradient-first-black' : 'border-gradient-first']">
       <v-col cols="12">
         <Calendar/>
