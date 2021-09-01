@@ -88,7 +88,7 @@
 				// GET request for remote image in node.js
 				axios({
 					method: 'GET',
-					url: 'http://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&units=metric&appid=17bc5c0bfdfb2c4bbfeba0bb22b5d40b',
+					url: 'https://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&units=metric&appid=17bc5c0bfdfb2c4bbfeba0bb22b5d40b',
 				}).then(response => {
 					const data = response.data;
 					console.log(data);
