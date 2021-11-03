@@ -12,7 +12,7 @@
         <v-btn @click="logIn" class="multi" color="white--text">{{ $t("login") }}</v-btn>
       </v-col>
       <v-col v-else>
-        <span class="text-h2">Hello {{ nickname }} !</span>
+        <span class="text-h6 text-md-h4">Hello {{ nickname }} !</span>
       </v-col>
       <v-spacer class="hidden-sm-and-down"/>
     </v-row>

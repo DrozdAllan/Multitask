@@ -79,6 +79,7 @@
           <v-calendar
                   ref="calendar"
                   v-model="focus"
+                  :locale="$root.$i18n.locale"
                   color="primary"
                   :events="events"
                   :type="type"
