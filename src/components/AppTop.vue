@@ -76,36 +76,36 @@
 </template>
 
 <script>
-  export default {
-    name: "AppTop",
-    computed: {
-      darkMode() {
-        return this.$store.getters.getDarkMode;
-      },
+export default {
+  name: "AppTop",
+  computed: {
+    darkMode() {
+      return this.$store.getters.getDarkMode;
     },
-    methods: {
-      toggleDarkMode() {
-        this.$store.commit("toggleDarkMode");
-      },
-      dynamicDarkMode1() {
-        if (this.darkMode === true) {
-          return "white";
-        } else {
-          return "black";
-        }
-      },
-      dynamicDarkMode2() {
-        if (this.darkMode === true) {
-          return "black";
-        } else {
-          return "white";
-        }
-      },
+  },
+  methods: {
+    toggleDarkMode() {
+      this.$store.commit("toggleDarkMode");
     },
-  };
+    dynamicDarkMode1() {
+      if (this.darkMode === true) {
+        return "white";
+      } else {
+        return "black";
+      }
+    },
+    dynamicDarkMode2() {
+      if (this.darkMode === true) {
+        return "black";
+      } else {
+        return "white";
+      }
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
-  .multicolor
-      background: linear-gradient(to right, #2196F3, #00BCD4, #009688, #4CAF50, #8BC34A)
+.multicolor
+  background: linear-gradient(to right, #2196F3, #00BCD4, #009688, #4CAF50, #8BC34A)
 </style>
