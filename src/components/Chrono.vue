@@ -7,11 +7,10 @@
 		<v-row justify="center" class="py-5">
 			<v-col>
 				<span class="label label-primary text-h3">{{ minutes }}</span>
-				minutes
+				{{ $t("minutes") }}
 				<span class="label label-primary text-h3">{{ secondes }}</span>
-				secondes
+				{{ $t("seconds") }}
 			</v-col>
-			<!-- TODO: add milliseconds and fix the pause resetting the second -->
 		</v-row>
 
 		<v-btn v-show="reset" @click="resetTimer" color="green white--text">{{
@@ -41,13 +40,13 @@ export default {
 			pause: false,
 			reset: false,
 			resume: false,
-			interval: "",
+			nbIntervId: {},
 		};
 	},
 	methods: {
 		startTimer() {
 			const start = Date.now();
-			this.interval = setInterval(() => {
+			this.nbIntervId = setInterval(() => {
 				const delta = Date.now() - start; // milliseconds elapsed since start
 				this.secondes = Math.floor(delta / 1000); // in seconds
 			}, 1000); // update about every second
@@ -57,7 +56,7 @@ export default {
 		},
 		pauseTimer() {
 			this.savedTime = this.secondes;
-			clearInterval(this.interval);
+			clearInterval(this.nbIntervId);
 			this.reset = true;
 			this.pause = false;
 			this.play = false;

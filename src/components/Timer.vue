@@ -37,7 +37,6 @@
 			{{ $t("timerStop") }}
 		</v-btn>
 
-		<!-- TODO: fix the infinite loop bug -->
 		<v-row justify="center" class="py-5">
 			<countdown v-if="timer" :end-time="new Date().getTime() + timeToMs">
 				<template v-slot:process="{ timeObj }">
@@ -75,9 +74,10 @@ export default {
 			minutes: 0,
 			seconds: 0,
 			timer: false,
+			finished: false,
 			time: "",
 			leftTime: "",
-			interval: {},
+			nIntervId: {},
 			value: 100,
 		};
 	},
@@ -90,16 +90,16 @@ export default {
 		startTimer() {
 			this.timer = true;
 			this.leftTime = this.timeToMs; // doit être en milliseconds
-			this.interval = setInterval(() => {
-				if (this.value === 0) {
-					return (this.value = 100);
+
+			this.nIntervId = setInterval(() => {
+				if (this.value > 0) {
+					this.value -= 100 / (this.timeToMs / 1000);
 				}
-				this.value -= 100 / (this.timeToMs / 1000);
 			}, 1000);
 		},
 		stopTimer() {
 			this.timer = false;
-			clearInterval(this.interval);
+			clearInterval(this.nIntervId);
 			this.value = 100;
 		},
 	},
